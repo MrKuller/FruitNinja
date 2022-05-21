@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>	</title>
+	<style type="text/css">
+		@font-face{
+			font-family:inter;
+			src:url('test.ttf');
+		}
+		.inter{
+			font-family: inter;
+		}
+		.sphere {
+			background:url('2.jpg');
+			background-size: 100% 100%;
+			width: 100px;
+			height: 100px;
+			position: absolute;
+			border-radius: 3px;
+			transition: all 0.8s ease-out;
+			top: -150px;
+		}
+		.ground {
+			background: green;
+			position: absolute;
+			width: 1879px;
+			height: 50px;
+			top:  920px;
+		}
+		.bod{
+			background-image: urL('3.png');
+			padding:0px;
+			margin: 0px;
+		}
+		.tabl{
+			margin-left:355px;
+			width: 1200px;
+			height: 700px;
+			margin-top: 90px;
+			background-image: url('endd.png');
+			background-size: 100% 100%;
+			position: absolute;
+			text-align: center;
+			display:none;
+		}
+		.schet{
+			margin-top:120px;
+			font-size: 70px;
+			letter-spacing: 10px;
+		}
+		.vrem{
+			margin-top: 50px;
+			font-size: 50px;
+			letter-spacing: 5px;
+		}
+		.but{
+			margin-top: 170px;
+			width: 160px;
+			height: 55px;
+			font-size: 20px;
+			border-radius:10px;
+			background: #AB7845;
+		}
+	</style>
+</head>
+<body class='bod'>
+<div class='tabl'>
+	<div class="schet inter">Твой счет: <span class='cifra inter'>0</span></div>
+	<div class="vrem inter">За <span class='vremya inter'>0</span> секунд</div>
+	<button class="but inter knopka">Press to restart</button>
+</div>
+<div class="ground">
+	
+</div>
+
+<script type="text/javascript">
+	let kn = document.querySelector('.knopka');
+	let cf = document.querySelector('.cifra');
+	let vr = document.querySelector('.vremya');
+	let tablitca = document.querySelector('.tabl');
+	let c = 0;
+	let topS = 0;
+	let time = 0;
+	let id = 0;
+	
+	let random = function(arg){
+  		let rand = Math.random() * arg;
+  		let round = Math.round(rand);
+ 		return round;
+	}
+
+	for(let i=0; i<20; i=i+1){
+		let box = document.createElement('div');
+		document.body.appendChild(box);
+		box.classList.add('sphere');
+		box.style.left = [random(1750)]+"px";
+	}
+	let sph = document.querySelectorAll('.sphere')
+
+	for(let i=0;i<sph.length;i=i+1){
+		sph[i].onclick = function(){
+			c = c + 1;
+			sph[i].style.display = 'none';
+			topS = 1030
+		}
+	}
+	let Tim = function(){
+		time = time + 1;
+	}
+	let changeTop = function(){
+		topS = topS + 200;
+		sph[id].style.top = topS + "px";
+		if(topS >= 1030){
+			topS = 0;
+			sph[id].style.display = 'none';
+			id = id + 1;
+			if(id == 20){
+				cf.innerHTML = c;
+				vr.innerHTML = time;
+				stopGame()
+				tablitca.style.display = 'block';
+			}
+		}
+	}
+	kn.onclick = function(){
+		location.reload();
+	}
+	let myint = setInterval(changeTop, 300);
+	let stopGame = function(){
+		clearInterval(myint)
+	}
+	let timer = setInterval(Tim,1000);
+	/*
+		функция рандомайзер() = {
+			....
+		}
+		цикл = {
+			создать элемент див
+			добавить див в body
+			добавить класс sphere
+			див лефт = рандомайзер(900)
+		}
+
+		сферы = document.querySelectorAll(sphere) 'все классы сфера'
+
+		цикл 10x = {
+			сферы[i].onclick = function(){
+				див[i] исчезает
+				topS = 1000;
+			}
+		}
+
+		let topS = 0;
+		let id = 0; чтобы мы могли обращаться к каждому диву
+
+		let changeTop = function(){
+			topS = topS + 150;
+			сферы[id].style.top = topS + px;
+			if(topS >= 1000){
+				topS = 0;
+				сферы[id].style.display = 'none';
+				id = id + 1;
+				if(id == 10){	количество созданных сфер
+					вызвать функцию stopGame
+				}
+			}
+		}
+
+		let myint = setInterval(changeTop, 300)
+
+		let stopGame = function(){
+				clearInterval(myint)
+		}
+	*/
+</script>
+</body>
+</html>
